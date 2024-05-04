@@ -37,6 +37,7 @@ from .enums import (
 from .kinematics import width_to_lifetime
 from .regex import getname
 from .utilities import latex_to_html_name, programmatic_name, str_with_unc
+import math
 
 __all__ = ("Particle", "ParticleNotFound", "InvalidParticle")
 
@@ -875,8 +876,7 @@ class Particle:
         if (
             self.pdgid.is_baryon
             and _digit(self.pdgid, Location.Nq2) == 1
-            and self.I
-            == 0.0  # 1st check alone is not sufficient to filter out lowest-ground Sigma's
+            and math.isclose(self.I, 0.0, rel_tol=1e-09, abs_tol=0.0)  # 1st check alone is not sufficient to filter out lowest-ground Sigma's
             and self.pdgid.has_strange
             and not (
                 self.pdgid.has_charm or self.pdgid.has_bottom or self.pdgid.has_top
