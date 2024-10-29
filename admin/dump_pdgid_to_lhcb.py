@@ -9,14 +9,13 @@ from __future__ import annotations
 
 import csv
 import datetime as dt
-
-import requests
+from security import safe_requests
 
 
 def download_table(
     url="https://gitlab.cern.ch/lhcb-conddb/DDDB/-/raw/master/param/ParticleTable.txt",
 ):
-    r = requests.get(url)
+    r = safe_requests.get(url)
     r.raise_for_status()
 
     lines = r.text.split("\n")
