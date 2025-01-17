@@ -16,7 +16,7 @@ import requests
 def download_table(
     url="https://gitlab.cern.ch/lhcb-conddb/DDDB/-/raw/master/param/ParticleTable.txt",
 ):
-    r = requests.get(url)
+    r = requests.get(url, timeout=60)
     r.raise_for_status()
 
     lines = r.text.split("\n")
